@@ -1,3 +1,7 @@
+// Code by Ida Gundhammar, 2021-11-18 - Mittuniversitetet HT20
+
+
+// Declaring variables
 const outputEl = document.getElementById('output');
 const messageEl = document.getElementById('message');
 const courseCodeEl = document.getElementById('courseCode');
@@ -5,13 +9,21 @@ const courseNameEl = document.getElementById('courseName');
 const coursePeriodEl = document.getElementById('coursePeriod');
 const addCourseBtn = document.getElementById('addCourseBtn');
 let last_id;
+
+
+
+// Declare url to use with fetch
 const url = new URL("http://localhost:3000/courses");
 
 
+
+// Eventlisteners on window and button
 window.addEventListener('load', getAllCourses);
 addCourseBtn.addEventListener('click', addCourse);
 
 
+
+// Function to get all courses. Write table to HTML and fetch data with url. Loop through result and write to HTML.
 async function getAllCourses() {
     outputEl.innerHTML = "";
     outputEl.innerHTML = "<tr><th>ID</th><th>Kod</th><th>Namn</th><th>Period</th><th>Radera</th></tr>";
@@ -27,6 +39,8 @@ async function getAllCourses() {
 }
 
 
+
+// Function to delete course. Use method delete with id from the clicked button. Write message and call getAllCourses again to update the website with correct data.
 function deleteCourse(id) {
     fetch(url + "/" + id, {
         method: 'DELETE',
@@ -37,6 +51,7 @@ function deleteCourse(id) {
 }
 
 
+// Function to add a new course. Get values from inputs. Make sure inputs are not empty. If not, create JSON object and send as body in fetch request. Call getAllCourses again to update the website with correct data.
 async function addCourse(e) {
     e.preventDefault();
     let courseCodeValue = courseCodeEl.value;
